@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meme Maker Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            background: #9147ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background: #772ce8;
+        }
+        
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .image-option {
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .image-option.selected {
+            border-color: #9147ff;
+        }
+        
+        .image-option img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meme Maker Control Panel</h1>
+    <p>Use this panel to create memes when someone redeems channel points</p>
+    
+    <form id="memeForm">
+        <div class="form-group">
+            <label>Select Image:</label>
+            <div class="image-preview" id="imagePreview"></div>
+            <input type="hidden" id="imageId" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="topText">Top Text:</label>
+            <input type="text" id="topText" placeholder="Enter top text">
+        </div>
+        
+        <div class="form-group">
+            <label for="bottomText">Bottom Text:</label>
+            <input type="text" id="bottomText" placeholder="Enter bottom text">
+        </div>
+        
+        <button type="submit">Send Meme to Stream</button>
+    </form>
+    
+    <div id="status" style="margin-top: 15px; padding: 10px; border-radius: 4px;"></div>
+    
+    <script>
+        // Load available images
+        const imageCount = 5; // Change this to match your number of images
+        const previewDiv = document.getElementById('imagePreview');
+        
+        for (let i = 1; i <= imageCount; i++) {
+            const div = document.createElement('div');
+            div.className = 'image-option';
+            div.dataset.id = i;
+            div.innerHTML = `<img src="/images/${i}.jpg" alt="Template ${i}" onerror="this.src='https://via.placeholder.com/150?text=Image+${i}'">`;
+            
+            div.addEventListener('click', function() {
+                document.querySelectorAll('.image-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('imageId').value = this.dataset.id;
+            });
+            
+            previewDiv.appendChild(div);
+        }
+        
+        // Handle form submission
+        document.getElementById('memeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const imageId = document.getElementById('imageId').value;
+            if (!imageId) {
+                showStatus('Please select an image', 'error');
+                return;
+            }
+            
+            const memeData = {
+                token: 'your-secret-token-here', // Same token as in server.js
+                topText: document.getElementById('topText').value,
+                bottomText: document.getElementById('bottomText').value,
+                imageId: imageId
+            };
+            
+            try {
+                const response = await fetch('/create-meme', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(memeData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showStatus('Meme sent to stream!', 'success');
+                    
+                    // Clear form after successful send
+                    document.getElementById('topText').value = '';
+                    document.getElementById('bottomText').value = '';
+                    document.getElementById('imageId').value = '';
+                    document.querySelectorAll('.image-option').forEach(opt => opt.classList.remove('selected'));
+                } else {
+                    showStatus('Error: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Failed to connect to server', 'error');
+            }
+        });
+        
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+            status.style.color = type === 'success' ? '#155724' : '#721c24';
+            
+            setTimeout(() => {
+                status.textContent = '';
+                status.style.backgroundColor = '';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

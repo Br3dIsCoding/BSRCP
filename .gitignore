@@ -1,0 +1,43 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# PyInstaller
+# Keep BreadRedeems.spec if you want; ignore one-file outputs
+*.exe
+
+# Local / machine-specific
+config.json
+*.log
+screen_flip_log.txt
+debug_output.txt
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# JS (if present in repo)
+node_modules/
+
+# Whisper / model caches (if stored under project)
+.cache/

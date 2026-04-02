@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            overflow: hidden;
+            font-family: 'Impact', sans-serif;
+        }
+        
+        #memeContainer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            display: none;
+            text-align: center;
+        }
+        
+        .meme-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .meme-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 
+                -3px -3px 0 #000,
+                3px -3px 0 #000,
+                -3px 3px 0 #000,
+                3px 3px 0 #000,
+                0 0 10px black;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+        
+        .top-text {
+            top: 20px;
+        }
+        
+        .bottom-text {
+            bottom: 20px;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .meme-visible {
+            animation: slideIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="memeContainer">
+        <img id="memeImage" class="meme-image" src="">
+        <div id="topText" class="meme-text top-text"></div>
+        <div id="bottomText" class="meme-text bottom-text"></div>
+    </div>
+
+    <script>
+        const memeContainer = document.getElementById('memeContainer');
+        const memeImage = document.getElementById('memeImage');
+        const topText = document.getElementById('topText');
+        const bottomText = document.getElementById('bottomText');
+        
+        let hideTimeout;
+        
+        // Connect to WebSocket server
+        const ws = new WebSocket('ws://localhost:8080');
+        
+        ws.onmessage = function(event) {
+            const meme = JSON.parse(event.data);
+            showMeme(meme);
+        };
+        
+        function showMeme(meme) {
+            // Clear any existing timeout
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+            
+            // Update meme content
+            memeImage.src = `images/${meme.imageId}.jpg`; // Adjust extension as needed
+            topText.textContent = meme.topText || '';
+            bottomText.textContent = meme.bottomText || '';
+            
+            // Show container
+            memeContainer.style.display = 'block';
+            memeContainer.classList.add('meme-visible');
+            
+            // Hide after 8 seconds
+            hideTimeout = setTimeout(() => {
+                memeContainer.style.display = 'none';
+                memeContainer.classList.remove('meme-visible');
+            }, 8000);
+        }
+        
+        // Handle connection issues
+        ws.onclose = function() {
+            console.log('Disconnected from server');
+        };
+    </script>
+</body>
+</html>
