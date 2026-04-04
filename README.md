@@ -1,7 +1,7 @@
 # BSRCP
 BreadsStreamRedeemControlPanel - A control panel for 6 channel point redeems, with the option to enable / disable + change duration time
 
-# ============== STREAMER.BOT INSTRUCTIONS ============== #
+# ============ STREAMER.BOT INSTRUCTIONS ============ #
 ------------------------------------------------------------
 THE PATH DOES NOT NEED TO BE THE SAME IN THE INSTRUCTIONS!!!
 ------------------------------------------------------------
