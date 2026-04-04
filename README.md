@@ -1,8 +1,10 @@
 # BSRCP
 BreadsStreamRedeemControlPanel - A control panel for 6 channel point redeems, with the option to enable / disable + change duration time
 
-# ============== IMPORTANT STREAMER.BOT INSTRUCTIONS ============== #
-
+# ============== STREAMER.BOT INSTRUCTIONS ============== #
+------------------------------------------------------------
+THE PATH DOES NOT NEED TO BE THE SAME IN THE INSTRUCTIONS!!!
+------------------------------------------------------------
 1. Create a new Action (the name doesnt matter)
 
 2. In the Triggers enter the normal twitch redeem (Right click + Add + Twitch + Channel Reward + Reward Redemption and then enter your redeem name)
