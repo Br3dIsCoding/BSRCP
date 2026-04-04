@@ -1,25 +1,35 @@
 # BSRCP
 BreadsStreamRedeemControlPanel - A control panel for 6 channel point redeems, with the option to enable / disable + change duration time
 
-# ============== IMPORTANT ============== #
+# ============== IMPORTANT STREAMER.BOT INSTRUCTIONS ============== #
 
-I used Streamer.bot, make sure when using streamer.bot or anything else, in the sub-action use open program, 
-TARGET: the full path to the BSRCP.exe
-Working Directory: Full path to the folder of the BSRCP.exe
-Arguments BSRCP.exe {your argument}
+1. Create a new Action (the name doesnt matter)
 
-These are the arguments for every redeem:
---shuffle - Shuffle WASD
---no_turn - No Turning
---invert - Invert mouse
---flip - Flip screen
---noswear - No Swear
---chaos - CHAOS
+2. In the Triggers enter the normal twitch redeem (Right click + Add + Twitch + Channel Reward + Reward Redemption and then enter your redeem name)
 
-Example:
-  Target: D:\TwitchRedeems\bsrcp_FOLDER\BSRCP.exe
-  Working Directory: D:\TwitchRedeems\bsrcp_FOLDER\
-  Arguments: BSRCP.exe --flip
+3. In Sub-Action: Right click + Add + Core + System + Run a program
+
+4. In the Target you enter the full path to the BSRCP.exe
+   Example:  D:\TwitchRedeems\bsrcp_FOLDER\BSRCP.exe
+
+5.In the Working Directory you enter the full path of the EXACT SAME FOLDER of where the .exe is
+  Example:  D:\TwitchRedeems\bsrcp_FOLDER\   <----- Exactly the same as the Target BUT without the BSRCP.exe
+
+6. In the Arguments enter BSRCP.exe --<and your redeem argument>
+  These are the arguments for every redeem:
+  --shuffle - Shuffle WASD
+  --no_turn - No Turning
+  --invert - Invert mouse
+  --flip - Flip screen
+  --noswear - No Swear
+  --chaos - CHAOS
+
+  Example: BSRCP.exe --flip    <------ for the flip screen redeem
+
+
+How its supposed to look like:
+![Example in Streamer.bot](https://github.com/Br3dIsCoding/BSRCP/blob/main/Example.png)
+
 
 
 # ============== REDEEMS ============== #
