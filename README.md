@@ -1,10 +1,24 @@
 # BSRCP
 BreadsStreamRedeemControlPanel - A control panel for 6 channel point redeems, with the option to enable / disable + change duration time
 
-# ============ STREAMER.BOT INSTRUCTIONS ============ #
+
+# ========= Twitch.TV INSTRUCTIONS ========= #
+-------------------------------------------------
+IF YOU HAVEN'T MADE A TWITCH CHANNEL POINT REDEEM
+-------------------------------------------------
+If you have made a twitch channel point redeem OR know how to make it just go to the streamer.bot instructions
+
+Make sure you have already created a channel redeem in twitch, to do that go to your twitch channel dashboard --> Viewer Rewards --> Power-ups & Channel Points --> Manage ower-ups & Channel Points --> scroll all the way down --> press Add New Custom Reward
+Here name it, add description and click  save
+Optionally you can add a cooldown if you dont your viewers to spam the redeem.
+
+
+# ========= STREAMER.BOT INSTRUCTIONS ========= #
 ------------------------------------------------------------
 THE PATH DOES NOT NEED TO BE THE SAME IN THE INSTRUCTIONS!!!
 ------------------------------------------------------------
+
+
 1. Create a new Action (the name doesnt matter)
 
 2. In the Triggers enter the normal twitch redeem (Right click + Add + Twitch + Channel Reward + Reward Redemption and then enter your redeem name)
@@ -14,7 +28,7 @@ THE PATH DOES NOT NEED TO BE THE SAME IN THE INSTRUCTIONS!!!
 4. In the Target you enter the full path to the BSRCP.exe
    Example:  D:\TwitchRedeems\bsrcp_FOLDER\BSRCP.exe
 
-5.In the Working Directory you enter the full path of the EXACT SAME FOLDER of where the .exe is
+5. In the Working Directory you enter the full path of the EXACT SAME FOLDER of where the .exe is
   Example:  D:\TwitchRedeems\bsrcp_FOLDER\   <----- Exactly the same as the Target BUT without the BSRCP.exe
 
 6. In the Arguments enter BSRCP.exe --<and your redeem argument>
@@ -27,6 +41,12 @@ THE PATH DOES NOT NEED TO BE THE SAME IN THE INSTRUCTIONS!!!
   --chaos - CHAOS
 
   Example: BSRCP.exe --flip    <------ for the flip screen redeem
+
+IMPORTANT NOTE: MAKE SURE THERE ARE NO SPACES BETWEEN "-" AND THE ARGUMENT
+-- flip (Incorrect)
+--flip (correct)
+
+Note: In the Wait Maximum time keep it at 0, 0 means the program will start the moment the redeem is being redeemed.
 
 
 How its supposed to look like:
